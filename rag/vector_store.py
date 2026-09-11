@@ -2,13 +2,13 @@ import json
 from typing import List
 from langchain_core.documents import Document
 from langchain_community.vectorstores import FAISS
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 class SchemeKnowledgeBase:
     def __init__(self, data_path: str = "data/schemes_data.json"):
         self.data_path = data_path
-        # Google's free-tier text embedding model
-        self.embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+        # Runs 100% locally on CPU without needing any API key
+        self.embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
         self.vector_store = self._build_index()
 
     def _build_index(self) -> FAISS:
